@@ -1,6 +1,6 @@
 #  AI Content Payment & Ownership Tracker
 
-> ** LIVE DEMO:**  https://ai-content-trracker.vercel.app/
+## LIVE DEMO:  https://ai-content-trracker.vercel.app/
 
 ## Project Overview
 
