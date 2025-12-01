@@ -1,6 +1,6 @@
 # 🤖 AI Content Payment & Ownership Tracker
 
-> **🌐 LIVE DEMO:** [https://x402-gmpayer-demo-5mz5pr18x-dannysteffes-projects.vercel.app](https://x402-gmpayer-demo-5mz5pr18x-dannysteffes-projects.vercel.app)
+> **🌐 LIVE DEMO:**  https://ai-content-trracker.vercel.app/
 
 ## Project Overview
 
