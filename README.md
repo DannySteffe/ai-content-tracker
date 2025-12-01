@@ -1,6 +1,6 @@
-# 🤖 AI Content Payment & Ownership Tracker
+#  AI Content Payment & Ownership Tracker
 
-> **🌐 LIVE DEMO:**  https://ai-content-trracker.vercel.app/
+> ** LIVE DEMO:**  https://ai-content-trracker.vercel.app/
 
 ## Project Overview
 
@@ -18,7 +18,7 @@ This project demonstrates a practical workflow where:
 - Content generation simulation
 - Basic user dashboard
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Local Development
 
@@ -48,14 +48,14 @@ A content creator wants to:
 3. Track their content library
 4. Potentially resell or license their AI-generated content
 
-## 🎬 Quick Demo
+##  Quick Demo
 
 ### Key mo Points
 
-- ✅ **X402 Orchestration**: 4-step workflow (validate → pay → generate → register)
-- ✅ **GMPayer Integration**: Automatic payment processing with different rates
-- ✅ **ERC-8004 Ownership**: Verifiable content ownership with proof generation
-- ✅ **Real-time UI**: Modern web interface with instant updates
+-  **X402 Orchestration**: 4-step workflow (validate → pay → generate → register)
+-  **GMPayer Integration**: Automatic payment processing with different rates
+-  **ERC-8004 Ownership**: Verifiable content ownership with proof generation
+-  **Real-time UI**: Modern web interface with instant updates
 
 ### Web Interface
 
@@ -69,37 +69,37 @@ A content creator wants to:
 - Payment processing with transaction IDs
 - Ownership registration with proof hashes
 
-## 🌟 Key Features
+##  Key Features
 
-### 🔄 X402 Orchestration
+###  X402 Orchestration
 
 - Multi-step workflow management
 - Atomic operations with rollback
 - Job monitoring and status tracking
 - Component coordination
 
-### 💳 GMPayer Integration
+###  GMPayer Integration
 
 - Automatic payment processing
 - Multiple pricing tiers
 - Transaction history tracking
 - Balance management
 
-### 🔐 ERC-8004 Ownership
+###  ERC-8004 Ownership
 
 - Content registration and metadata
 - Ownership proof generation
 - Transfer capability
 - Complete audit trail
 
-### 🎨 AI Content Generation
+###  AI Content Generation
 
 - Multiple content types (text, image, audio, video)
 - AI model selection
 - Quality assurance
 - Unique content IDs
 
-## 📊 Tech Stack
+##  Tech Stack
 
 - **Backend:** Node.js, Express.js
 - **Frontend:** Vanilla JavaScript, Modern CSS
@@ -107,19 +107,3 @@ A content creator wants to:
 - **Deployment:** Vercel, Railway, Heroku ready
 - **Database:** In-memory (easily replaceable)
 
-## 🎯 Use Cases
-
-- **Portfolio Projects**: Showcase integration skills
-- **Technical Interviews**: Demonstrate architecture knowledge
-- **Hackathons**: Ready-to-deploy AI marketplace
-- **Learning**: Understand blockchain concepts practically
-- **Prototyping**: Foundation for real AI marketplaces
-
-## 📈 What's Next?
-
-- [ ] Deploy your version using this template
-- [ ] Integrate real AI APIs (OpenAI, Anthropic)
-- [ ] Add user authentication
-- [ ] Implement database backend
-- [ ] Create mobile app version
-- [ ] Add blockchain smart contracts
