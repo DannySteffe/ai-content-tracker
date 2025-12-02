@@ -1,5 +1,6 @@
 # 🤖 AI Content Payment & Ownership Tracker
 
+> **🌐 LIVE DEMO:** [https://x402-gmpayer-demo-5mz5pr18x-dannysteffes-projects.vercel.app](https://x402-gmpayer-demo-5mz5pr18x-dannysteffes-projects.vercel.app)
 
 ## Project Overview
 
@@ -38,8 +39,6 @@ Open `http://localhost:3000` in your browser.
 - `src/web/` - Simple web interface
 - `src/ai/` - Mock AI content generation
 
-
-
 ## Use Case
 
 A content creator wants to:
@@ -51,15 +50,12 @@ A content creator wants to:
 
 ## 🎬 Quick Demo
 
-
 ### Key mo Points
 
 - ✅ **X402 Orchestration**: 4-step workflow (validate → pay → generate → register)
 - ✅ **GMPayer Integration**: Automatic payment processing with different rates
 - ✅ **ERC-8004 Ownership**: Verifiable content ownership with proof generation
 - ✅ **Real-time UI**: Modern web interface with instant updates
-
-
 
 ### Web Interface
 
@@ -72,9 +68,6 @@ A content creator wants to:
 - Step-by-step orchestration logging
 - Payment processing with transaction IDs
 - Ownership registration with proof hashes
-
-
-
 
 ## 🌟 Key Features
 
@@ -114,8 +107,6 @@ A content creator wants to:
 - **Deployment:** Vercel, Railway, Heroku ready
 - **Database:** In-memory (easily replaceable)
 
-
-
 ## 🎯 Use Cases
 
 - **Portfolio Projects**: Showcase integration skills
@@ -132,9 +123,3 @@ A content creator wants to:
 - [ ] Implement database backend
 - [ ] Create mobile app version
 - [ ] Add blockchain smart contracts
-
-
-
-
-
-
