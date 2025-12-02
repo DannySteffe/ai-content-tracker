@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Content Payment & Ownership Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .user-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .balance {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .content-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .content-type {
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .rates {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .rate-badge {
+            background: #e9ecef;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI Content Payment & Ownership Tracker</h1>
+            <p>Generate, Pay, and Own AI Content with X402 + GMPayer + ERC-8004</p>
+        </div>
+
+        <div class="dashboard">
+            <!-- Content Generation -->
+            <div class="card">
+                <h2>🎨 Generate AI Content</h2>
+                
+                <div class="user-info">
+                    <div>Current User: <strong id="currentUser">user1</strong></div>
+                    <div class="balance">Balance: $<span id="userBalance">0.00</span></div>
+                </div>
+
+                <form id="generateForm">
+                    <div class="form-group">
+                        <label>Content Type:</label>
+                        <select id="contentType" required>
+                            <option value="text-generation">📝 Text Generation</option>
+                            <option value="image-generation">🖼️ Image Generation</option>
+                            <option value="audio-generation">🎵 Audio Generation</option>
+                            <option value="video-generation">🎥 Video Generation</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Prompt:</label>
+                        <textarea id="prompt" placeholder="Describe what you want to generate..." rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>AI Model (optional):</label>
+                        <select id="aiModel">
+                            <option value="">Auto-select</option>
+                            <option value="gpt-4">GPT-4 (Text)</option>
+                            <option value="dall-e-3">DALL-E 3 (Image)</option>
+                            <option value="whisper">Whisper (Audio)</option>
+                            <option value="stable-video">Stable Video (Video)</option>
+                        </select>
+                    </div>
+
+                    <div class="rates" id="serviceRates"></div>
+
+                    <button type="submit" id="generateBtn">Generate Content</button>
+                </form>
+
+                <div id="generateResult"></div>
+            </div>
+
+            <!-- User Dashboard -->
+            <div class="card">
+                <h2>📊 Your Dashboard</h2>
+                
+                <div class="form-group">
+                    <label>Switch User:</label>
+                    <select id="userSelect">
+                        <option value="user1">User 1</option>
+                        <option value="user2">User 2</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Add Funds:</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="addAmount" placeholder="Amount" min="1" max="100" step="0.01">
+                        <button type="button" id="addFundsBtn">Add</button>
+                    </div>
+                </div>
+
+                <h3 style="margin: 20px 0 10px 0;">Your Content:</h3>
+                <div id="userContent" class="content-grid">
+                    <div class="loading">Loading your content...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Platform Stats -->
+        <div class="card">
+            <h2>📈 Platform Statistics</h2>
+            <div id="platformStats">
+                <div class="loading">Loading statistics...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class AIContentApp {
+            constructor() {
+                this.currentUser = 'user1';
+                this.init();
+            }
+
+            async init() {
+                await this.loadServiceRates();
+                await this.loadUserDashboard();
+                await this.loadPlatformStats();
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                document.getElementById('generateForm').addEventListener('submit', (e) => this.handleGenerate(e));
+                document.getElementById('userSelect').addEventListener('change', (e) => this.switchUser(e.target.value));
+                document.getElementById('addFundsBtn').addEventListener('click', () => this.addFunds());
+            }
+
+            async loadServiceRates() {
+                try {
+                    const response = await fetch('/api/rates');
+                    const data = await response.json();
+                    
+                    const ratesContainer = document.getElementById('serviceRates');
+                    ratesContainer.innerHTML = Object.entries(data.rates)
+                        .map(([type, rate]) => `<div class="rate-badge">${type}: $${rate}</div>`)
+                        .join('');
+                } catch (error) {
+                    console.error('Failed to load rates:', error);
+                }
+            }
+
+            async loadUserDashboard() {
+                try {
+                    const response = await fetch(`/api/dashboard/${this.currentUser}`);
+                    const data = await response.json();
+                    
+                    document.getElementById('currentUser').textContent = this.currentUser;
+                    document.getElementById('userBalance').textContent = data.balance.toFixed(2);
+                    
+                    const contentContainer = document.getElementById('userContent');
+                    if (data.ownedContent.length === 0) {
+                        contentContainer.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">No content yet. Generate some!</div>';
+                    } else {
+                        contentContainer.innerHTML = data.ownedContent.map(content => `
+                            <div class="content-item">
+                                <div class="content-type">${content.contentType}</div>
+                                <div><strong>ID:</strong> ${content.id}</div>
+                                <div><strong>Model:</strong> ${content.aiModel}</div>
+                                <div><strong>Prompt:</strong> ${content.prompt.substring(0, 60)}${content.prompt.length > 60 ? '...' : ''}</div>
+                                <div><strong>Created:</strong> ${new Date(content.creationTime).toLocaleDateString()}</div>
+                            </div>
+                        `).join('');
+                    }
+                } catch (error) {
+                    console.error('Failed to load dashboard:', error);
+                }
+            }
+
+            async loadPlatformStats() {
+                try {
+                    const response = await fetch('/api/stats');
+                    const data = await response.json();
+                    
+                    const statsContainer = document.getElementById('platformStats');
+                    statsContainer.innerHTML = `
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                                <div style="font-size: 2rem; font-weight: bold; color: #667eea;">${data.platform.totalContent}</div>
+                                <div>Total Content</div>
+                            </div>
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                                <div style="font-size: 2rem; font-weight: bold; color: #667eea;">${data.platform.totalTransfers}</div>
+                                <div>Transfers</div>
+                            </div>
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                                <div style="font-size: 2rem; font-weight: bold; color: #667eea;">${Object.keys(data.platform.contentTypes).length}</div>
+                                <div>Content Types</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <strong>Content Distribution:</strong>
+                            ${Object.entries(data.platform.contentTypes).map(([type, count]) => 
+                                `<span class="rate-badge">${type}: ${count}</span>`
+                            ).join(' ')}
+                        </div>
+                    `;
+                } catch (error) {
+                    console.error('Failed to load stats:', error);
+                }
+            }
+
+            async handleGenerate(e) {
+                e.preventDefault();
+                
+                const generateBtn = document.getElementById('generateBtn');
+                const resultDiv = document.getElementById('generateResult');
+                
+                generateBtn.disabled = true;
+                generateBtn.textContent = 'Generating...';
+                
+                const formData = {
+                    prompt: document.getElementById('prompt').value,
+                    contentType: document.getElementById('contentType').value,
+                    userId: this.currentUser,
+                    model: document.getElementById('aiModel').value || undefined
+                };
+
+                try {
+                    const response = await fetch('/api/generate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        resultDiv.innerHTML = `
+                            <div class="success">
+                                <strong>✅ Content Generated Successfully!</strong><br>
+                                Content ID: ${data.content.contentId}<br>
+                                Cost: $${data.payment.amount}<br>
+                                Model: ${data.content.model}
+                            </div>
+                        `;
+                        
+                        // Refresh dashboard
+                        await this.loadUserDashboard();
+                        await this.loadPlatformStats();
+                        
+                        // Reset form
+                        document.getElementById('generateForm').reset();
+                    } else {
+                        throw new Error(data.error);
+                    }
+                } catch (error) {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <strong>❌ Generation Failed:</strong><br>
+                            ${error.message}
+                        </div>
+                    `;
+                } finally {
+                    generateBtn.disabled = false;
+                    generateBtn.textContent = 'Generate Content';
+                }
+            }
+
+            async switchUser(newUser) {
+                this.currentUser = newUser;
+                await this.loadUserDashboard();
+            }
+
+            async addFunds() {
+                const amount = parseFloat(document.getElementById('addAmount').value);
+                if (!amount || amount <= 0) {
+                    alert('Please enter a valid amount');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/add-funds', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            userId: this.currentUser,
+                            amount: amount
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (data.success) {
+                        await this.loadUserDashboard();
+                        document.getElementById('addAmount').value = '';
+                    }
+                } catch (error) {
+                    alert('Failed to add funds: ' + error.message);
+                }
+            }
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            new AIContentApp();
+        });
+    </script>
+</body>
+</html>

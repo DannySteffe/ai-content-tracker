@@ -1,0 +1,15 @@
+# Railway Configuration
+version = "2"
+
+[build]
+  command = "npm install"
+
+[run]
+  command = "npm start"
+
+[variables]
+  NODE_ENV = "production"
+
+[services]
+  [services.web]
+    port = 3000
